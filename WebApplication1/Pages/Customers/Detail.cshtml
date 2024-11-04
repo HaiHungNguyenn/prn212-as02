@@ -1,0 +1,155 @@
+﻿@page
+@using BusinessObjects
+@model WebApplication1.Pages.Customers.Detail
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+
+        .detail-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-container h2 {
+            color: #3c8dbc;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            color: #333;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .back-btn {
+            background-color: #3c8dbc;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background-color: #337ab7;
+        }
+    </style>
+</head>
+<body>
+@{
+    if (CurrentUser.IsAdmin)
+    {
+        <nav style="background-color: #86b7fe; padding: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="margin: 0;">Hello @CurrentUser.User.Role, @CurrentUser.User.Name</h1>
+                               <a href="/Logout" style="background-color: #6f6f4d; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer;">Logout</a>
+
+            </div>
+            <div style="margin-top: 10px;">
+                <a href="/Rooms/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Rooms</a>
+                <a href="/Bookings/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Bookings</a>
+                <a href="/Customers/Index" style="text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Customers</a>
+            </div>
+        </nav>
+    }
+}
+<h1>Customer Details</h1>
+<div class="detail-container">
+    @{
+        if (Model.Customer is null)
+        {
+            <h1>Customer not found</h1>
+        }
+        else
+        {
+            <h2>@Model.Customer.CustomerFullName</h2>
+
+            <div class="detail-item">
+                <span class="label">Customer ID:</span>
+                <span class="value">@Model.Customer.CustomerId</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Full Name:</span>
+                <span class="value">@Model.Customer.CustomerFullName</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Email Address:</span>
+                <span class="value">@Model.Customer.EmailAddress</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Telephone:</span>
+                <span class="value">@Model.Customer.Telephone</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Date of Birth:</span>
+                <span class="value">@Model.Customer.CustomerBirthday</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Status:</span>
+                <span class="value">@Model.Customer.CustomerStatus</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="label">Password:</span>
+                <span class="value">@Model.Customer.Password</span>
+            </div>
+
+            <div class="actions">
+                <button class="back-btn">
+                    <a href="/Customers/Index" style="text-decoration: none; color: white;">Back to List</a>
+                </button>
+            </div>
+        }
+    }
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="Presentation.Views.CreateCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation.Views"
+        mc:Ignorable="d"
+        Title="CreateCustomerWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Full name" HorizontalAlignment="Left" Margin="130,59,0,0" VerticalAlignment="Top"/>
+        <Label Content="Telephone" HorizontalAlignment="Left" Margin="130,104,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email address" HorizontalAlignment="Left" Margin="130,159,0,0" VerticalAlignment="Top"/>
+        <Label Content="Birthdate" HorizontalAlignment="Left" Margin="130,217,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="130,266,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtFullName" HorizontalAlignment="Left" Margin="269,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415"/>
+        <TextBox x:Name="txtPhone" HorizontalAlignment="Left" Margin="269,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="269,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="269,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415"/>
+        <DatePicker x:Name="dpBirthdate" HorizontalAlignment="Left" Margin="269,219,0,0" VerticalAlignment="Top" Width="207"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="353,371,0,0" VerticalAlignment="Top" Click="Button_Click" Height="30" Width="100" Background="Red" Foreground="White"/>
+        <Button Content="Create" HorizontalAlignment="Left" Margin="562,371,0,0" VerticalAlignment="Top" Click="Button_Click_1" Height="30" Width="100" Background="LightGreen"/>
+
+    </Grid>
+</Window>

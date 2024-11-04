@@ -1,0 +1,108 @@
+﻿@page
+@model WebApplication1.Pages.Bookings.Edit
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .cancel-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #6c757d;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<h1>Edit Booking</h1>
+@if (Model.Booking is not null)
+{
+    <form method="post">
+        <div>
+            <label for="CustomerFullName">Customer Full Name</label>
+            <input type="text" id="CustomerFullName" name="CustomerFullName" value="@Model.Booking.Customer.CustomerFullName" readonly/>
+        </div>
+        <div>
+            <label for="BookingDate">Booking Date</label>
+            <input type="date" id="BookingDate" name="BookingDate" value="@Model.Booking.BookingDate"/>
+        </div>
+        <div>
+            <label for="TotalPrice">Total Price</label>
+            <input type="number" id="TotalPrice" name="TotalPrice" value="@Model.Booking.TotalPrice"/>
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" class="cancel-btn" onclick="location.href='@Url.Page("/Bookings/Index")'">Cancel</button>
+    </form>
+}
+else
+{
+    <h1>NOT FOUND BOOKINGS</h1>
+}
+</body>
+</html>

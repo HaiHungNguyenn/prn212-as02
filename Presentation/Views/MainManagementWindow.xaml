@@ -1,0 +1,247 @@
+﻿<Window x:Class="Presentation.Views.MainManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation.Views"
+        mc:Ignorable="d"
+        Title="MainManagementWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Customers">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Customer ID:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold" FontStyle="Italic"/>
+                            <TextBlock Name="txtCustomerId" Grid.Column="1" Text="{Binding Path=CustomerId, Mode=OneWay}"
+                   DataContext="{Binding ElementName=lvCustomer, Path=SelectedItem}" FontWeight="Bold" FontStyle="Italic"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="👤 Full Name:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtFullName" Grid.Column="1" Text="{Binding Path=CustomerFullName, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvCustomer, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="📞 Telephone:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtTelephone" Grid.Column="1" Text="{Binding Path=Telephone, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvCustomer, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="✉️ Email Address:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtEmailAddress" Grid.Column="1" Text="{Binding Path=EmailAddress, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvCustomer, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="🗓️ Birthday:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <DatePicker Name="dpBirthday" Grid.Column="1" Text="{Binding Path=CustomerBirthday, StringFormat='dd-MM-yyyy', Mode=OneWay}" 
+                    DataContext="{Binding ElementName=lvCustomer, Path=SelectedItem}" />
+                        </Grid>
+
+                        <WrapPanel>
+                            <Button Content="Add" Click="CreateCustomer_Click" Margin="0 0 10 0" Width="75" Background="ForestGreen" Foreground="LightYellow"/>
+                            <Button Content="Update" Click="UpdateCustomer_Click" Margin="0 0 10 0" Width="75" Background="Orange" Foreground="DarkBlue"/>
+                            <Button Content="Remove" Click="DeleteCustomer_Click" Margin="0 0 10 0" Width="75" Background="Red" Foreground="White"/>
+
+                            <TextBox x:Name="txtCustomerSearchKeyword" Width="170" Margin="0 0 10 0"/>
+                            <Button Content="🔎" Click="SearchCustomers_Click" Width="50"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+
+
+                    <ListView Name="lvCustomer" Grid.Row="1" SelectedValuePath="CustomerId" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Customer ID" DisplayMemberBinding="{Binding Path=CustomerId}" />
+                                <GridViewColumn Header="Full Name" DisplayMemberBinding="{Binding Path=CustomerFullName}" />
+                                <GridViewColumn Header="Telephone" DisplayMemberBinding="{Binding Path=Telephone}"/>
+                                <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
+                                <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Path=CustomerBirthday, StringFormat='dd-MM-yyyy'}"/>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=CustomerStatus}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Room informations">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Room ID:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold" FontStyle="Italic"/>
+                            <TextBlock Name="txtRoomId" Grid.Column="1" Text="{Binding Path=RoomId, Mode=OneWay}"
+                   DataContext="{Binding ElementName=lvRoomInformations, Path=SelectedItem}" FontWeight="Bold" FontStyle="Italic"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="🏢 Room Number:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtRoomNumber" Grid.Column="1" Text="{Binding Path=RoomNumber, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvRoomInformations, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="📝 Room Detail:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtRoomDetail" Grid.Column="1" Text="{Binding Path=RoomDetailDescription, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvRoomInformations, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="👥 Max Capacity:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtMaxCapacity" Grid.Column="1" Text="{Binding Path=RoomMaxCapacity, Mode=OneWay}" 
+                 DataContext="{Binding ElementName=lvRoomInformations, Path=SelectedItem}" />
+                        </Grid>
+                        <!--<DatePicker Name="txtPrice" Margin="0,0,0,5" Text="{Binding Path=RoomPricePerDay, Mode=OneWay}" 
+                                    DataContext="{Binding ElementName=lvRoomInformations, Path=SelectedItem}" />-->
+                        <WrapPanel>
+                            <Button Content="Add" Click="CreateRoomInformation_Click" Margin="0 0 10 0" Width="75" Background="ForestGreen" Foreground="LightYellow"/>
+                            <Button Content="Update" Click="UpdateRoomInformation_Click" Margin="0 0 10 0" Width="75" Background="Orange" Foreground="DarkBlue"/>
+                            <Button Content="Remove" Click="DeleteRoomInformation_Click" Margin="0 0 10 0" Width="75" Background="Red" Foreground="White"/>
+
+                            <TextBox x:Name="txtRoomInformationSearchKeyword" Width="170" Margin="0 0 10 0"/>
+                            <Button Content="🔎" Click="SearchRoomInformations_Click" Width="50"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <ListView Name="lvRoomInformations" Grid.Row="1" SelectedValuePath="RoomId" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Room ID" DisplayMemberBinding="{Binding Path=RoomId}" />
+                                <GridViewColumn Header="Room number" DisplayMemberBinding="{Binding Path=RoomNumber}" />
+                                <GridViewColumn Header="Detail description" DisplayMemberBinding="{Binding Path=RoomDetailDescription}"/>
+                                <GridViewColumn Header="Max capacity" DisplayMemberBinding="{Binding Path=RoomMaxCapacity}"/>
+                                <GridViewColumn Header="Price per day" DisplayMemberBinding="{Binding Path=RoomPricePerDay}"/>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=RoomStatus}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Booking reservations">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- TextBoxes -->
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Reservation ID:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold" FontStyle="Italic"/>
+                            <TextBlock Name="txtBookingReservationId" Grid.Column="1" Text="{Binding Path=BookingReservationId, Mode=OneWay}"
+                   DataContext="{Binding ElementName=lvBookingReservations, Path=SelectedItem}" FontWeight="Bold" FontStyle="Italic"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="👤 Customer Name:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtCustomerFullNameInBookingReservation" Grid.Column="1" Text="{Binding Path=Customer.CustomerFullName, Mode=OneWay}"
+                 DataContext="{Binding ElementName=lvBookingReservations, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="📅 Booking Date:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtBookingDate" Grid.Column="1" Text="{Binding Path=BookingDate, StringFormat='dd-MM-yyyy', Mode=OneWay}"
+                 DataContext="{Binding ElementName=lvBookingReservations, Path=SelectedItem}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="💵 Total Price:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0" Width="125" FontWeight="Bold"/>
+                            <TextBox Name="txtTotalPrice" Grid.Column="1" Text="{Binding Path=TotalPrice, Mode=OneWay}"
+                 DataContext="{Binding ElementName=lvBookingReservations, Path=SelectedItem}" />
+                        </Grid>
+
+                        <WrapPanel>
+                            <Button Content="Add" Click="CreateBookingReservation_Click" Margin="0 0 10 0" Width="75" Background="ForestGreen" Foreground="LightYellow"/>
+                            <Button Content="Update" Click="UpdateBookingReservation_Click" Margin="0 0 10 0" Width="75" Background="Orange" Foreground="DarkBlue"/>
+                            <Button Content="Remove" Click="DeleteBookingReservation_Click" Margin="0 0 10 0" Width="75" Background="Red" Foreground="White"/>
+
+                            <TextBox x:Name="txtBookingReservationSearchKeyword" Width="170" Margin="0 0 10 0"/>
+                            <Button Content="🔎" Click="SearchBookingReservations_Click" Width="50"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <ListView Name="lvBookingReservations" Grid.Row="1" SelectedValuePath="BookingReservationId" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Booking Reservation Id" DisplayMemberBinding="{Binding Path=BookingReservationId}"/>
+                                <GridViewColumn Header="Customer full name" DisplayMemberBinding="{Binding Path=Customer.CustomerFullName}" />
+                                <GridViewColumn Header="Booking date" DisplayMemberBinding="{Binding Path=BookingDate, StringFormat='dd-MM-yyyy'}" />
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=BookingStatus}"/>
+                                <GridViewColumn Header="Total price" DisplayMemberBinding="{Binding Path=TotalPrice}"/>
+                                <GridViewColumn Header="Room Number" DisplayMemberBinding="{Binding Path= BookingDetails[0].Room.RoomNumber}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

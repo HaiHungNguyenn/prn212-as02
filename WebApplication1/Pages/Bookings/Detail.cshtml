@@ -1,0 +1,110 @@
+﻿@page
+@model WebApplication1.Pages.Bookings.Detail
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .booking-info, .booking-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .booking-details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .booking-details th, .booking-details td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .booking-details th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        .booking-details td {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<h1>Booking Details</h1>
+@if (@Model.Booking is null)
+{
+    <h1>NOT FOUND BOOKING</h1>
+}
+else
+{
+    <div class="booking-info">
+        <label>Customer Name:</label>
+        <p>@Model.Booking.Customer.CustomerFullName</p>
+        
+        <label>Booking Date:</label>
+        <p>@Model.Booking.BookingDate?.ToString("yyyy-MM-dd")</p>
+        
+        <label>Total Price:</label>
+        <p>@Model.Booking.TotalPrice</p>
+    </div>
+    
+    <div class="booking-details">
+        <h2>Booking Details</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Price Per Day</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if(Model.Booking.BookingDetails.Any()){
+                @foreach (var detail in Model.Booking.BookingDetails)
+                    {
+                        <tr>
+                            <td>@detail.Room.RoomNumber</td>
+                            <td>@detail.Room.RoomPricePerDay</td>
+                            <td>@detail.StartDate.ToString("yyyy-MM-dd")</td>
+                            <td>@detail.EndDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+            }else{
+                <h3>DO not have any booking detail</h3>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+   
+</body>
+</html>

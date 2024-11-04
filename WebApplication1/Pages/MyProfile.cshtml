@@ -1,0 +1,281 @@
+﻿@page
+@using BusinessObjects
+@model WebApplication1.Pages.MyProfile
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        padding: 20px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #4a4a4a;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #3c8dbc;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .edit-btn {
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background-color: #4cae4c;
+    }
+
+    .delete-btn {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background-color: #c9302c;
+    }
+    
+    .detail-btn {
+        background-color: #6f6b6f;
+        color: white;
+    }
+
+    .detail-btn:hover {
+        background-color: #abacab;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    .validation-summary-errors {
+            border: 1px solid red;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .validation-summary-errors ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+</style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .tab {
+            margin-top: 20px;
+        }
+
+        .tab button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .tab button:hover {
+            background-color: #0056b3;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-top: 10px;
+        }
+
+        .tabcontent.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+@{
+    if (CurrentUser.IsCustomer)
+    {
+        <nav style="background-color: #86b7fe; padding: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="margin: 0;">Hello @CurrentUser.User.Role, @CurrentUser.User.Name</h1>
+                                <a href="/Logout" style="background-color: #6f6f4d; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer;">Logout</a>
+
+            </div>
+        </nav>
+    }
+}
+@if (User is not null)
+{
+    <h1>My Profile</h1>
+    <form method="post">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" name="Name" value="@Model.User.CustomerFullName"/>
+
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="Email" value="@Model.User.EmailAddress"/>
+
+        <label for="Telephone">Telephone</label>
+        <input type="tel" id="Telephone" name="Telephone" value="@Model.User.Telephone"/>
+
+        <label for="Birthday">Birthday</label>
+        <input type="date" id="Birthday" name="Birthday" value="@Model.User.CustomerBirthday?.ToString("yyyy-MM-dd")"/>
+
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Password"/>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <div class="tab">
+        <button type="button" onclick="openTab('history')">Booking History</button>
+    </div>
+
+    <div id="history" class="tabcontent">
+        <h2>Booking History</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Price</th>
+                <th>Room number</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var booking in Model.BookingHistory)
+            {
+                @foreach (var detail in booking.BookingDetails)
+                {
+                    <tr>
+                        <td>@booking.BookingReservationId</td>
+                        <td>@(Model.User.CustomerFullName ?? string.Empty)</td>
+                        <td>@detail.StartDate</td>
+                        <td>@detail.EndDate</td>
+                        <td>@booking.TotalPrice</td>
+                        <td>@detail.Room.RoomNumber</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h1> ERROR </h1>
+}
+
+
+<script>
+        function openTab(tabName) {
+            var i, tabcontent;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+        }
+    </script>
+</body>
+</html>

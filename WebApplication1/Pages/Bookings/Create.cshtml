@@ -1,0 +1,176 @@
+﻿@page
+@using BusinessObjects
+@model WebApplication1.Pages.Bookings.Create
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Booking Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        input[type="date"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="button"] {
+            background-color: #6c757d;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        button[type="button"]:hover {
+            background-color: #5a6268;
+        }
+        
+        .validation-summary-errors {
+            border: 1px solid red;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+            
+        .validation-summary-errors ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+@{
+    if (CurrentUser.IsAdmin)
+    {
+        <nav style="background-color: #86b7fe; padding: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="margin: 0;">Hello @CurrentUser.User.Role, @CurrentUser.User.Name</h1>
+                                <a href="/Logout" style="background-color: #6f6f4d; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer;">Logout</a>
+
+            </div>
+            <div style="margin-top: 10px;">
+                <a href="/Rooms/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Rooms</a>
+                <a href="/Bookings/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Bookings</a>
+                <a href="/Customers/Index" style="text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Customers</a>
+            </div>
+        </nav>
+    }
+}
+<h1>Create Booking Reservation</h1>
+@if (!ModelState.IsValid)
+{
+    <div class="validation-summary-errors alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+}
+<form method="post">
+    <div>
+        <label for="CustomerId">Customer</label>
+        <select id="CustomerId" name="CustomerId" required>
+            <option value="" disabled selected>Select Customer</option>
+            @foreach (var customer in Model.Customers)
+            {
+                <option value="@customer.CustomerId">@customer.CustomerFullName</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="RoomId">Room Number</label>
+        <select id="RoomId" name="RoomId" required>
+            <option value="" disabled selected>Select Room</option>
+            @foreach (var room in Model.Rooms)
+            {
+                <option value="@room.RoomId">@room.RoomNumber</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="StartDate">Start Date</label>
+        <input type="date" id="StartDate" name="StartDate" required/>
+    </div>
+    <div>
+        <label for="EndDate">End Date</label>
+        <input type="date" id="EndDate" name="EndDate" required/>
+    </div>
+    <div>
+        <label for="TotalPrice">Total Price</label>
+        <input type="number" id="TotalPrice" name="TotalPrice" required min="1"/>
+    </div>
+    <button type="submit">Create</button>
+    <button type="button" onclick="location.href='@Url.Page("/Bookings/Index")'">Cancel</button>
+</form>
+</body>
+</html>

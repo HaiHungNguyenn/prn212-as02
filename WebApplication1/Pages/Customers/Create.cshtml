@@ -1,0 +1,175 @@
+﻿@page
+@using BusinessObjects
+@model WebApplication1.Pages.Customers.Create
+
+@{
+    Layout = null;
+}
+<style>
+    .validation-summary-errors {
+        border: 1px solid red;
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    
+    .validation-summary-errors ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+    
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    form div {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    input[type="password"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    
+    .validation-summary-errors {
+        border: 1px solid red;
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    
+    .validation-summary-errors ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .cancel-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #6c757d;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+    
+    .cancel-btn:hover {
+        background-color: #5a6268;
+    }
+</style>
+@{
+    if (CurrentUser.IsAdmin)
+    {
+        <nav style="background-color: #86b7fe; padding: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="margin: 0;">Hello @CurrentUser.User.Role, @CurrentUser.User.Name</h1>
+                             <a href="/Logout" style="background-color: #6f6f4d; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer;">Logout</a>
+
+            </div>
+            <div style="margin-top: 10px;">
+                <a href="/Rooms/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Rooms</a>
+                <a href="/Bookings/Index" style="margin-right: 10px; text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Bookings</a>
+                <a href="/Customers/Index" style="text-decoration: none; color: white; background-color: #007bff; padding: 10px 20px; border-radius: 4px;">Customers</a>
+            </div>
+        </nav>
+    }
+}
+<h1>Create Customer</h1>
+@if (!ModelState.IsValid)
+{
+    <div class="validation-summary-errors alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+}
+<form method="post">
+    <div>
+        <label for="CustomerFullName">Full Name</label>
+        <input type="text" id="CustomerFullName" name="CustomerFullName" value="@Model.Customer.CustomerFullName" />
+    </div>
+    <div>
+        <label for="EmailAddress">Email Address</label>
+        <input type="email" id="EmailAddress" name="EmailAddress" value="@Model.Customer.EmailAddress" />
+    </div>
+    <div>
+        <label for="Telephone">Telephone</label>
+        <input type="tel" id="Telephone" name="Telephone" value="@Model.Customer.Telephone" />
+    </div>
+    <div>
+        <label for="CustomerBirthday">Date of Birth</label>
+        <input type="date" id="CustomerBirthday" name="CustomerBirthday" value="@Model.Customer.CustomerBirthday" />
+    </div>
+    <input type="hidden" id="CustomerStatus" name="CustomerStatus" value="@Model.Customer.CustomerStatus" />
+    <div>
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Password" value="@Model.Customer.Password" />
+    </div>
+    <button type="submit">Create</button>
+    <button type="button" class="cancel-btn" onclick="location.href='@Url.Page("/Customers/Index")'">Cancel</button>
+</form>
